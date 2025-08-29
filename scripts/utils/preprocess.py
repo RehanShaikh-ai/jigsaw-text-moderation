@@ -1,4 +1,4 @@
-from .io import save_file 
+from .etl import save_file 
 
 import pandas as pd
 import re
@@ -57,20 +57,19 @@ CONTRACTIONS = {
 }
 
 
-def preprocess(df, save_path=None):
+def preprocess(df):
     labels = df[
         ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     ]
     comments = df["comment_text"].apply(preprocess_text)
-    if save_path:
-        save_file(comments,labels, save_path)
+    save_file(comments,labels)
     return comments, labels
 
 
 def preprocess_text(text: str) -> str:
     text = text.lower()
-    text = text.expand_contractions(text)
-    text = text.clean_text(text)
+    text = expand_contractions(text)
+    text = clean_text(text)
     return text
 
 
