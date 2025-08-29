@@ -57,12 +57,13 @@ CONTRACTIONS = {
 }
 
 
-def preprocess(df):
+def preprocess(df, save_path=None):
     labels = df[
         ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     ]
     comments = df["comment_text"].apply(preprocess_text)
-    save_file(comments,labels)
+    if save_path:
+        save_file(comments,labels)
     return comments, labels
 
 

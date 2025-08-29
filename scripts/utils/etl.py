@@ -19,6 +19,12 @@ def save_file(comments, labels, save_path="data\\processed"):
     print(f"[INFO] File saved at: {full_path}")
 
 
-def split_data(df, test_size=0.2, random_state=42):
-    train, val = train_test_split(df, test_size=test_size, random_state=random_state)
-    return train, val
+def split_data(comments, labels, test_size=0.2, random_state=42):
+    X_train, X_val, y_train, y_val = train_test_split(
+        comments, labels, 
+        test_size=test_size, 
+        random_state=random_state
+    )
+    return X_train, X_val, y_train, y_val
+
+
