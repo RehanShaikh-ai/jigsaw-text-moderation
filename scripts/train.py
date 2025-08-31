@@ -14,11 +14,12 @@ path = config['data']
 
 if os.path.exists(path['processed_data']):
     X,y = etl.load_data(path['processed_data'])
-    
+    print("processed data available")
+    print(X)
 else:
     df = etl.extract_data(path['train_data'])
-    X,y = preprocess.preprocess(df)
-    print(df)
+    X,y = preprocess.preprocess(df, path['processed_data'])
+    print(X)
 
 X_train,X_val, y_train, y_val= etl.split_data(X,y)
 X_train, X_val, tfidf_model =features.get_features(X_train, X_val) 

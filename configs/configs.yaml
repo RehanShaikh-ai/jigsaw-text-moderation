@@ -1,7 +1,7 @@
 data:
   train_data: data/raw/train.csv
   save_path: data/processed
-  processed_data: .data/processed/processed.csv
+  processed_data: data/processed/processed.csv
   test_data: data/raw/test.csv
   test_labels: data/raw/test_labels.csv
 
