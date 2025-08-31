@@ -1,12 +1,20 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import yaml
 
 def extract_data(path):
     return pd.read_csv(path)
 
+def load_data(path):
+    df = pd.read_csv(path)
+    comments = df['comment_text']
+    labels = df[
+        ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+    ]
+    return comments, labels
 
-def save_file(comments, labels, save_path="data\\processed"):
+def save_file(comments, labels, save_path="data/processed"):
     os.makedirs(save_path, exist_ok=True)
     full_path = os.path.join(save_path, "processed.csv")
 
@@ -26,5 +34,4 @@ def split_data(comments, labels, test_size=0.2, random_state=42):
         random_state=random_state
     )
     return X_train, X_val, y_train, y_val
-
 

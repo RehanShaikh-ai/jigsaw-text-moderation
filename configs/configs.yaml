@@ -1,9 +1,9 @@
 data:
-  train_data: "data/raw/train.csv"
-  save_path: "data/processed"
-  processed_data: "data/processed/processed.csv"
-  test_data: "data/raw/test.csv" 
-  test_labels: "data/raw/test_labels.csv"
+  train_data: data/raw/train.csv
+  save_path: data/processed
+  processed_data: .data/processed/processed.csv
+  test_data: data/raw/test.csv
+  test_labels: data/raw/test_labels.csv
 
 data_split:
   random_state: 42
@@ -12,6 +12,16 @@ data_split:
 vectorizer:
   max_features: 5000
 
-train:
-  max_iter: 200
-  solver: "liblinear"
+model:
+  type: logistic_regression
+
+  logistic_regression:  
+    max_iter: 200
+    solver: "liblinear"
+
+  svm:
+    kernel: linear
+    C: 1.0
+
+  naive_bayes:
+    alpha: 1.0
