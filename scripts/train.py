@@ -39,4 +39,14 @@ elif config['model']['type'] == 'naive_bayes':
 model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)
 
-print("model trained")
+print("model trained:", config['model']['type'])
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+
+y_pred = model.predict(X_val)
+
+print("Accuracy:", accuracy_score(y_val, y_pred))
+print("Precision:", precision_score(y_val, y_pred, average='macro', zero_division=0))
+print("Recall:", recall_score(y_val, y_pred, average='macro'))
+print("F1 Score:", f1_score(y_val, y_pred, average='macro'))
+
