@@ -13,7 +13,7 @@ vectorizer:
   max_features: 5000
 
 model:
-  type: logistic_regression
+  type: naive_bayes
 
   logistic_regression:  
     max_iter: 200
