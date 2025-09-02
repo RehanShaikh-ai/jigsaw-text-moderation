@@ -57,7 +57,7 @@ CONTRACTIONS = {
 }
 
 
-def preprocess(df, save_path=None):
+def preprocess(df, save_path):
     df["comment_text"] = df["comment_text"].apply(preprocess_text)
     if save_path:
         df.to_csv(save_path, index=False)
@@ -78,7 +78,7 @@ def expand_contractions(text: str) -> str:
 
 
 def clean_text(text: str) -> str:
-    text = re.sub(r"[^a-z\s]", " ", text)
+    text = re.sub(r"[^a-z\s!]", " ", text)
     text = re.sub(r"[\n\t\r]", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text

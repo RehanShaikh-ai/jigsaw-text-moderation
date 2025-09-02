@@ -1,7 +1,7 @@
 from utils import preprocess, etl, features
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import SVC
+from sklearn.naive_bayes import ComplementNB
 from sklearn.multiclass import OneVsRestClassifier
 import yaml
 import os
@@ -21,7 +21,7 @@ else:
     X,y = preprocess.preprocess(df, path['processed_data'])
     print(X)
 
-X_train,X_val, y_train, y_val= etl.split_data(X,y)
+X_train,X_val, y_train, y_val= etl.split_data(X,y, config['data_split']['val_size'], config['data_split']['random_state'] )
 X_train, X_val, tfidf_model =features.get_features(X_train, X_val) 
 
 if config['model']['type'] == 'logistic_regression':
@@ -30,23 +30,21 @@ if config['model']['type'] == 'logistic_regression':
 
 elif config['model']['type'] == 'svm':
     param = config['model']['svm']
-    model = LinearSVC(**param) 
+    model = SVC(**param) 
 
 elif config['model']['type'] == 'naive_bayes':
     param = config['model']['naive_bayes']
-    model = MultinomialNB(**param)
+    model = ComplementNB(**param)
 
 model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)
 
 print("model trained:", config['model']['type'])
 
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import classification_report
 
 y_pred = model.predict(X_val)
 
-print("Accuracy:", accuracy_score(y_val, y_pred))
-print("Precision:", precision_score(y_val, y_pred, average='macro', zero_division=0))
-print("Recall:", recall_score(y_val, y_pred, average='macro'))
-print("F1 Score:", f1_score(y_val, y_pred, average='macro'))
+print(classification_report(y_val, y_pred, target_names=["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"], zero_division=0, digits=4))
+
 

@@ -13,10 +13,10 @@ vectorizer:
   max_features: 5000
 
 model:
-  type: svm
+  type: logistic_regression
 
   logistic_regression:  
-    max_iter: 200
+    max_iter: 2000
     solver: liblinear
     class_weight: balanced
 
@@ -25,4 +25,4 @@ model:
     class_weight: balanced
 
   naive_bayes:
-    alpha: 1.0
+    alpha: 1.5
