@@ -26,3 +26,6 @@ model:
 
   naive_bayes:
     alpha: 1.5
+
+evaluation:
+  saved_model = "models/model.pkl"

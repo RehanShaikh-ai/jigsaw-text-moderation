@@ -42,3 +42,5 @@ def split_data(comments, labels, test_size=0.2, random_state=42):
     )
     return X_train, X_val, y_train, y_val
 
+def load_test(X_test, y_test):
+    pass
