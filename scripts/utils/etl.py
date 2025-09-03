@@ -1,7 +1,9 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import preprocess
 import yaml
+
 
 with open("configs/configs.yaml") as f:
     config = yaml.safe_load(f)
@@ -43,4 +45,9 @@ def split_data(comments, labels, test_size=0.2, random_state=42):
     return X_train, X_val, y_train, y_val
 
 def load_test(X_test, y_test):
-    pass
+    X = pd.read_csv(X_test)
+    y = pd.read_csv(y_test)
+
+    X = preprocess.preprocess(X, save_path=None)
+    y = y[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].isin(X['id'])
+    
