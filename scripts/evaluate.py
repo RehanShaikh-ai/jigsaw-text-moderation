@@ -1,4 +1,4 @@
-from .utils import metrics, etl, preprocess
+from utils import metrics, etl, preprocess, features
 import joblib
 import yaml
 import pandas
@@ -9,9 +9,9 @@ with open("configs/configs.yaml") as f:
 
 path = config['data']
 
+X, y = etl.prepare_data(path['processed_data'])
+_, X_test , _, y_test= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'])
+features.get_features(X_test)
+print(X_test)
 
-_, X_test , _, y_test= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
 
-
-model = joblib.load(config['evaluation']['saved_model'])
-y_pred = model.predict(X_test)

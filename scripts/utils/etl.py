@@ -1,9 +1,8 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
-import preprocess
 import yaml
-
+from utils import preprocess
 
 with open("configs/configs.yaml") as f:
     config = yaml.safe_load(f)

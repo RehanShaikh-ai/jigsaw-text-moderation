@@ -12,14 +12,8 @@ with open("configs/configs.yaml") as f:
 
 path = config['data']
 
-if os.path.exists(path['processed_data']):
-    X,y = etl.load_data(path['processed_data'])
-    print("processed data available")
-    print(X)
-else:
-    df = etl.extract_data(path['train_data'])
-    X,y = preprocess.preprocess(df, path['processed_data'])
-    print(X)
+X, y = etl.prepare_data(path['processed_data'])
+
 
 X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
 X_train, tfidf_model =features.get_features(X_train) 

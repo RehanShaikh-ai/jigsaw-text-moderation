@@ -1,5 +1,3 @@
-from .etl import save_file, load_data
-
 import pandas as pd
 import re
 
@@ -58,6 +56,7 @@ CONTRACTIONS = {
 
 
 def preprocess(df, save_path):
+    from .etl import load_data
     df["comment_text"] = df["comment_text"].apply(preprocess_text)
     if save_path:
         df.to_csv(save_path, index=False)
