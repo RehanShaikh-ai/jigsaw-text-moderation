@@ -64,7 +64,6 @@ def preprocess(df, save_path):
 
 
 def preprocess_text(text: str) -> str:
-    text = text.lower()
     text = expand_contractions(text)
     text = clean_text(text)
     return text
@@ -77,7 +76,7 @@ def expand_contractions(text: str) -> str:
 
 
 def clean_text(text: str) -> str:
-    text = re.sub(r"[^a-z\s!]", " ", text)
+    text = re.sub(r"[^A-Za-z\s?!]", " ", text)
     text = re.sub(r"[\n\t\r]", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
