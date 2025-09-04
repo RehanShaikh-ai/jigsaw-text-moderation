@@ -22,6 +22,15 @@ def load_data(path):
     
     return comments, labels
 
+def prepare_data(path):
+    if os.path.exists(path):
+        X,y = load_data(path)
+        print("processed data available")
+    else:
+        df = extract_data(path['train_data'])
+        X,y = preprocess.preprocess(df, path)
+    return X, y
+
 def save_file(comments, labels, save_path="data/processed"):
     if not os.path.exists(path['processed_data']):
             
@@ -37,17 +46,10 @@ def save_file(comments, labels, save_path="data/processed"):
 
 
 def split_data(comments, labels, test_size=0.2, random_state=42):
-    X_train, X_val, y_train, y_val = train_test_split(
+    X_train, X_test, y_train, y_test = train_test_split(
         comments, labels, 
         test_size=test_size, 
         random_state=random_state
     )
-    return X_train, X_val, y_train, y_val
-
-def load_test(X_test, y_test):
-    X = pd.read_csv(X_test)
-    y = pd.read_csv(y_test)
-
-    X = preprocess.preprocess(X, save_path=None)
-    y = y[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].isin(X['id'])
+    return X_train, X_test, y_train, y_test
     

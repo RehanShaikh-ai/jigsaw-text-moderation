@@ -21,8 +21,9 @@ else:
     X,y = preprocess.preprocess(df, path['processed_data'])
     print(X)
 
-X_train,X_val, y_train, y_val= etl.split_data(X,y, config['data_split']['val_size'], config['data_split']['random_state'] )
-X_train, X_val, tfidf_model =features.get_features(X_train, X_val) 
+X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
+X_train, tfidf_model =features.get_features(X_train) 
+
 
 if config['model']['type'] == 'logistic_regression':
     param = config['model']['logistic_regression']
@@ -40,11 +41,3 @@ model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)
 
 print("model trained:", config['model']['type'])
-
-from sklearn.metrics import classification_report
-
-y_pred = model.predict(X_val)
-
-print(classification_report(y_val, y_pred, target_names=["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"], zero_division=0, digits=4))
-
-

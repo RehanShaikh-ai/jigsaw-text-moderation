@@ -1,9 +1,8 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def get_features(train, val, max_features = 5000):
+def get_features(X, max_features = 5000):
     vectorizer = TfidfVectorizer(max_features=max_features)
-    X_train = vectorizer.fit_transform(train)
-    X_val = vectorizer.transform(val)
+    X = vectorizer.fit_transform(X)
 
-    return X_train, X_val, vectorizer
+    return X, vectorizer
 
