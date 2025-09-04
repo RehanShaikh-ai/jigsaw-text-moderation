@@ -16,7 +16,7 @@ X, y = etl.prepare_data(path['processed_data'])
 
 
 X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
-X_train, tfidf_model =features.get_features(X_train) 
+X_train, tfidf_model =features.get_features(X_train, save_vectorizer=config['vectorizer']['vectorizer_path']) 
 
 
 if config['model']['type'] == 'logistic_regression':

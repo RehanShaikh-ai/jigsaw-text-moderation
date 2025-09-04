@@ -2,6 +2,7 @@ data:
   train_data: data/raw/train.csv
   save_path: data/processed
   processed_data: data/processed/processed.csv
+  
 
 data_split:
   random_state: 42
@@ -9,12 +10,13 @@ data_split:
 
 vectorizer:
   max_features: 5000
+  vectorizer_path: "models/vectorizer.joblib"
 
 model:
   type: logistic_regression
 
   logistic_regression:  
-    max_iter: 2000
+    max_iter: 200
     solver: liblinear
     class_weight: balanced
 
