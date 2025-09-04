@@ -26,7 +26,7 @@ def prepare_data(path):
         X,y = load_data(path)
         print("processed data available")
     else:
-        df = extract_data(path['train_data'])
+        df = extract_data(config['data']['train_data'])
         X,y = preprocess.preprocess(df, path)
     return X, y
 

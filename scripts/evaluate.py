@@ -14,7 +14,8 @@ _, X_test , _, y_test= etl.split_data(X,y, config['data_split']['test_size'], co
 
 vectorizer = joblib.load("models/vectorizer.joblib")
 X_test = vectorizer.transform(X_test)
+model = joblib.load("models/model.joblib")
 
-
-
+y_pred = model.predict(X_test)
+metrics.report(y_test, y_pred)
 
