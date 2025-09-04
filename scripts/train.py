@@ -6,6 +6,7 @@ from sklearn.multiclass import OneVsRestClassifier
 import yaml
 import os
 import pandas as pd
+import joblib
 
 with open("configs/configs.yaml") as f: 
     config = yaml.safe_load(f)
@@ -16,7 +17,7 @@ X, y = etl.prepare_data(path['processed_data'])
 
 
 X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
-X_train, tfidf_model =features.get_features(X_train, save_vectorizer=config['vectorizer']['vectorizer_path']) 
+X_train=features.get_features(X_train, save_vectorizer=config['vectorizer']['vectorizer_path']) 
 
 
 if config['model']['type'] == 'logistic_regression':
@@ -33,5 +34,6 @@ elif config['model']['type'] == 'naive_bayes':
 
 model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)
+joblib.dump(model, config['model']['model_path'])
 
 print("model trained:", config['model']['type'])

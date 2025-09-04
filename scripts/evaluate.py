@@ -15,6 +15,6 @@ _, X_test , _, y_test= etl.split_data(X,y, config['data_split']['test_size'], co
 vectorizer = joblib.load("models/vectorizer.joblib")
 X_test = vectorizer.transform(X_test)
 
-print(X_test)
+
 
 

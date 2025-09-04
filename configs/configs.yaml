@@ -13,6 +13,7 @@ vectorizer:
   vectorizer_path: "models/vectorizer.joblib"
 
 model:
+  model_path: model.joblib
   type: logistic_regression
 
   logistic_regression:  
