@@ -15,11 +15,14 @@ with open("configs/configs.yaml") as f:
 path = config['data']
 
 X, y = etl.prepare_data(path['processed_data'])
+print("data processed and loaded")
 
-X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
+X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'])
+print("data split complete")
+
 vectorizer = config['vectorizer']
 X_train=features.get_features(X_train, **vectorizer) 
-
+print("features vectorized")
 
 if config['model']['type'] == 'logistic_regression':
     param = config['model']['logistic_regression']

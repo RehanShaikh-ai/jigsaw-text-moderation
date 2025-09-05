@@ -15,7 +15,7 @@ vectorizer:
 
 model:
   model_path: models/model2.joblib
-  type: logistic_regression
+  type: naive_bayes
 
   logistic_regression:  
     max_iter: 500
@@ -25,7 +25,7 @@ model:
   lightgbm:
     objective: binary
     class_weight: balanced   
-    n_estimators: 200
+    n_estimators: 500
     learning_rate: 0.05
     num_leaves: 64
 
@@ -34,7 +34,7 @@ model:
     class_weight: balanced
 
   naive_bayes:
-    alpha: 1.5
+    alpha: 5.0
 
 evaluation:
   saved_model = "models/model2.pkl"

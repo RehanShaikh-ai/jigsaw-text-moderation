@@ -10,14 +10,17 @@ with open("configs/configs.yaml") as f:
 path = config['data']
 def extract_data(path):
     return pd.read_csv(path)
+   
 
-def load_data(path):
+def load_data(path, downsample):
     df = pd.read_csv(path)
     df.dropna(inplace=True)
-    toxic = df[df[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].sum(axis=1)!=0]
-    non_toxic = df[df[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].sum(axis=1)==0]
-    non_toxic = non_toxic.sample(30000, random_state=42)
-    df = pd.concat([toxic, non_toxic], axis=0) 
+    
+    if downsample:
+        toxic = df[df[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].sum(axis=1)!=0]
+        non_toxic = df[df[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]].sum(axis=1)==0]
+        non_toxic = non_toxic.sample(30000, random_state=42)
+        df = pd.concat([toxic, non_toxic], axis=0) 
     comments = df['comment_text']
     labels = df[
         ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
