@@ -1,4 +1,4 @@
-from sklearn.metrics import classification_report, precision_recall_curve, roc_curve, auc
+from sklearn.metrics import classification_report, precision_recall_curve, roc_auc_score, auc
 import matplotlib.pyplot as plt
 
 def report(y_true, y_pred):
@@ -14,7 +14,7 @@ def pr_curve(y_true, y_pred):
     plt.show()
 
 def roc_auc(y_true, y_pred):
-    fpr, tpr, _ = roc_curve(y_true,y_pred)
+    fpr, tpr, _ = roc_auc_score(y_true,y_pred)
 
     plt.plot(fpr,tpr)
     plt.plot([0,1],[0,1], style = "--", color='black', linewidth=1)
