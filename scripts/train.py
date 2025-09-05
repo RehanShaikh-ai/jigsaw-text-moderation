@@ -1,5 +1,6 @@
 from utils import preprocess, etl, features
 from sklearn.linear_model import LogisticRegression
+import lightgbm as lgb
 from sklearn.svm import SVC
 from sklearn.naive_bayes import ComplementNB
 from sklearn.multiclass import OneVsRestClassifier
@@ -15,14 +16,18 @@ path = config['data']
 
 X, y = etl.prepare_data(path['processed_data'])
 
-
 X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], config['data_split']['random_state'] )
-X_train=features.get_features(X_train, save_vectorizer=config['vectorizer']['vectorizer_path']) 
+vectorizer = config['vectorizer']
+X_train=features.get_features(X_train, **vectorizer) 
 
 
 if config['model']['type'] == 'logistic_regression':
     param = config['model']['logistic_regression']
     model = LogisticRegression(**param)
+
+elif config['model']['type'] == 'lightgbm':
+    param = config['model']['lightgbm']
+    model = lgb.LGBMClassifier(**param)
 
 elif config['model']['type'] == 'svm':
     param = config['model']['svm']

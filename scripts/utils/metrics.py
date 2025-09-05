@@ -2,7 +2,8 @@ from sklearn.metrics import classification_report, precision_recall_curve, roc_c
 import matplotlib.pyplot as plt
 
 def report(y_true, y_pred):
-    print(classification_report(y_true, y_pred, target_names=["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]))
+    print(classification_report(y_true, y_pred, target_names=["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"], zero_division=0))
+
 def pr_curve(y_true, y_pred):
     precision, recall, _ = precision_recall_curve(y_true,y_pred)
 

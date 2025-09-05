@@ -9,17 +9,25 @@ data_split:
   test_size: 0.2
 
 vectorizer:
-  max_features: 5000
   vectorizer_path: "models/vectorizer.joblib"
+  max_char: 20000
+  max_words: 10000
 
 model:
   model_path: models/model.joblib
-  type: logistic_regression
+  type: lightgbm
 
   logistic_regression:  
     max_iter: 200
     solver: liblinear
     class_weight: balanced
+
+  lightgbm:
+    objective: binary
+    class_weight: balanced   
+    n_estimators: 500
+    learning_rate: 0.05
+    num_leaves: 64
 
   svm:
     C: 1.0

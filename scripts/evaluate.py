@@ -18,4 +18,6 @@ model = joblib.load("models/model.joblib")
 
 y_pred = model.predict(X_test)
 metrics.report(y_test, y_pred)
+metrics.roc_auc(y_test, y_pred)
+metrics.pr_curve(y_test, y_pred)
 
