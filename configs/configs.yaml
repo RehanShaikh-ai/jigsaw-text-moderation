@@ -14,18 +14,18 @@ vectorizer:
   max_words: 10000
 
 model:
-  model_path: models/model4.joblib
-  type: lightgbm
+  model_path: models/model3.joblib
+  type: logistic_regression
 
   logistic_regression:  
-    max_iter: 500
+    max_iter: 700
     solver: liblinear
     class_weight: balanced
 
   lightgbm:
     objective: binary
     class_weight: balanced   
-    n_estimators: 900
+    n_estimators: 500
     learning_rate: 0.05
     num_leaves: 64
 
@@ -37,4 +37,4 @@ model:
     alpha: 5.0
 
 evaluation:
-  saved_model = models/model4.joblib
+  saved_model: models/model3.joblib

@@ -10,6 +10,7 @@ def get_features(X, max_char = 20000, max_words = 10000,vectorizer_path ="models
                                  )
     word_vectorizer = TfidfVectorizer(max_features=max_words,
                                       ngram_range=(1,2),
+                                      stop_words='english',
                                       sublinear_tf=True,
                                       analyzer='word'
                                       )
