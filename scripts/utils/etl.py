@@ -30,7 +30,7 @@ def load_data(path, downsample):
 
 def prepare_data(path):
     if os.path.exists(path):
-        X,y = load_data(path)
+        X,y = load_data(path, downsample=True)
         print("processed data available")
     else:
         df = extract_data(config['data']['train_data'])
