@@ -1,0 +1,20 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import FeatureUnion
+import joblib
+
+def get_features(X, max_char = 20000, max_words = 10000,vectorizer_path ="models/vectorizer.joblib"):
+    char_vectorizer = TfidfVectorizer(max_features=max_char,
+                                 ngram_range=(3,5),
+                                 sublinear_tf=True,
+                                 analyzer='char'
+                                 )
+    word_vectorizer = TfidfVectorizer(max_features=max_words,
+                                      ngram_range=(1,3),
+                                      stop_words='english',
+                                      sublinear_tf=True,
+                                      analyzer='word'
+                                      )
+    vectorizer = FeatureUnion([("char",char_vectorizer), ("word",word_vectorizer)])
+    X = vectorizer.fit_transform(X)
+    joblib.dump(vectorizer, vectorizer_path)
+    return X

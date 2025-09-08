@@ -1,8 +1,9 @@
-from utils import preprocess, etl, features
+from scripts.utils import tfidf_features
+from utils import preprocess, etl
 from sklearn.linear_model import LogisticRegression
 import lightgbm as lgb
-from sklearn.svm import SVC
-from sklearn.naive_bayes import ComplementNB
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.multiclass import OneVsRestClassifier
 import yaml
 import os
@@ -21,8 +22,9 @@ X_train, _ , y_train, _= etl.split_data(X,y, config['data_split']['test_size'], 
 print("data split complete")
 
 vectorizer = config['vectorizer']
-X_train=features.get_features(X_train, **vectorizer) 
+X_train=tfidf_features.get_features(X_train, **vectorizer) 
 print("features vectorized")
+print(X_train, "\n", X_train.shape)
 
 if config['model']['type'] == 'logistic_regression':
     param = config['model']['logistic_regression']
@@ -34,11 +36,11 @@ elif config['model']['type'] == 'lightgbm':
 
 elif config['model']['type'] == 'svm':
     param = config['model']['svm']
-    model = SVC(**param) 
+    model = LinearSVC(**param) 
 
 elif config['model']['type'] == 'naive_bayes':
     param = config['model']['naive_bayes']
-    model = ComplementNB(**param)
+    model = MultinomialNB(**param)
 
 model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)

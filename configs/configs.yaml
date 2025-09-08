@@ -15,10 +15,10 @@ vectorizer:
 
 model:
   model_path: models/model3.joblib
-  type: logistic_regression
+  type: svm
 
   logistic_regression:  
-    max_iter: 700
+    max_iter: 900
     solver: liblinear
     class_weight: balanced
 
@@ -30,7 +30,7 @@ model:
     num_leaves: 64
 
   svm:
-    C: 1.0
+    C: 3.0
     class_weight: balanced
 
   naive_bayes:
