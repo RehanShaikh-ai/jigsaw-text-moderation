@@ -1,9 +1,7 @@
-from scripts.utils import tfidf_features
+from scripts.utils import tfidf_features, count_features
 from utils import preprocess, etl
 from sklearn.linear_model import LogisticRegression
 import lightgbm as lgb
-from sklearn.svm import LinearSVC
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.multiclass import OneVsRestClassifier
 import yaml
 import os
