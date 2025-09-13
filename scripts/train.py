@@ -34,13 +34,11 @@ elif config['model']['type'] == 'lightgbm':
     param = config['model']['lightgbm']
     model = lgb.LGBMClassifier(**param)
 
-elif config['model']['type'] == 'svm':
-    param = config['model']['svm']
-    model = LinearSVC(**param) 
+elif config['model']['type'] == 'nbsvm':
+    param = config['model']['nbsvm']
+    
 
-elif config['model']['type'] == 'naive_bayes':
-    param = config['model']['naive_bayes']
-    model = MultinomialNB(**param)
+
 
 model = OneVsRestClassifier(model)
 model.fit(X_train, y_train)
