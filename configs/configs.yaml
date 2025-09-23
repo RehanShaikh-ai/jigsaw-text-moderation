@@ -15,7 +15,7 @@ vectorizer:
 
 model:
   model_path: models/model3.joblib
-  type: svm
+  type: logistic_regression
 
   logistic_regression:  
     max_iter: 900
